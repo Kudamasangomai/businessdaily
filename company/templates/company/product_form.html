@@ -1,0 +1,20 @@
+{% extends 'main/bdheader.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+  {% if product %}
+        <h1 class="h2"> {{ product }}</h1>
+
+      {% endif %}
+
+
+      <form method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
+     {{ form|crispy }}
+   
+      <button type="submit" class="btn btn-info">Update</button>
+    </form>
+
+
+      {% endblock content %}

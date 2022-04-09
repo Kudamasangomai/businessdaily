@@ -1,0 +1,237 @@
+
+'''class profile(DetailView):
+    model = User
+    template_name = 'users/profile.html'
+    context_object_name = 'userinfo'
+
+    def get_context_data(self, ** kwargs):
+        ctx = super().get_context_data( ** kwargs)
+        ctx['a']=User.objects.get(id = self.request.user.id)
+        ctx['companyinfo'] = company.objects.get(companyid =  self.request.user.id)
+        return ctx   
+
+
+    @login_required
+def  UserIssuedBooks(request,userid):
+	if not request.user.is_superuser:
+		return render(request,'library/restricted.html')
+	context ={
+		'userissuedbooks' :issuedbooks.objects.filter(userid_id = userid),
+		#'userissuedname':issuedbooks.objects.filter(userid_id=userid).distinct(),
+		'userissuedname':User.objects.get(id=userid),
+		#'duedate' : issuedbooks.objects.get(due_date),
+		'today' : timezone.now()
+
+	}
+
+	return render(request,'library/userIssuedBooks.html',context)
+    @login_required
+def issuebook(request,booksid):
+	issuebook = books.objects.get(id=booksid)
+	return render(request,'library/book_confirm_issue.html',{'issuebook':issuebook})'''
+
+
+      
+ '''   logged_as_user = User.objects.get(id= request.user.id) 
+    if logged_as_user:
+        print(logged_as_user.id)
+        return render(request,'users/profile.html',{'logged_as_user':logged_as_user})
+
+    else:'''
+
+
+	{% if companyinfo.company_name or a.id  %}
+
+ <p>{{  companyinfo.company_name}}</p>
+
+ {% elseif   %}
+
+<h1> {{ a.username }}</h1>
+
+{% else %}
+
+<h1>am actually blank </h1>
+{% endif %}
+from django.shortcuts import render ,redirect
+from django.contrib.auth.decorators import login_required
+from users.forms import productform
+from company.models import company ,product
+from django.contrib import messages
+
+# Create your views here.
+
+@login_required
+def home(request):
+    if request.method == 'POST':
+        
+        form = productform(request.POST)
+        
+        
+        if form.is_valid():
+            is_company = company.objects.get(companyid = request.POST.get('postedbyuser'))
+            if is_company:
+                form.save()
+                messages.success(request,f'Product Successfully Added')
+                return render(request ,'main/home.html',{'form':form}) 
+           ''' else:
+                messages.success(request,f'You are not registred As a Registered')
+                return redirect('home')
+                
+        else:
+            messages.success(request,f'You are not registred As a Registered')
+            return render(request ,'main/home.html',{'form':form})'''
+      
+    else:
+        context={
+                'form' : productform(),   
+                'userinfo' : company.objects.get(companyid = request.user.id)
+        }
+    
+        return render(request ,'main/home.html',context)
+
+
+
+from django.shortcuts import render ,redirect
+from django.contrib.auth.decorators import login_required
+from users.forms import productform
+from company.models import company ,product
+from django.contrib import messages
+
+# Create your views here.
+
+@login_required
+def home(request):
+    if request.method == 'POST':
+        
+        form = productform(request.POST)
+        
+        
+        if form.is_valid():
+            is_company = company.objects.get(companyid = request.POST.get('postedbyuser'))
+            if is_company:
+                form.save()
+                messages.success(request,f'Product Successfully Added')
+                return render(request ,'main/home.html',{'form':form}) 
+           ''' else:
+                messages.success(request,f'You are not registred As a Registered')
+                return redirect('home')
+                
+        else:
+            messages.success(request,f'You are not registred As a Registered')
+            return render(request ,'main/home.html',{'form':form})'''
+      
+    else:
+        context={
+                'form' : productform(),   
+                'userinfo' : company.objects.get(companyid = request.user.id)
+        }
+    
+        return render(request ,'main/home.html',context)
+
+
+
+ ''' usern = 771111111
+    returnUrl ='http://google.com'
+    returnUrl ='http://google.com''''
+
+    if request.method = 'POST':
+        usern = request.POST.get('ecocashnumber')
+        print(usern)
+   ''' paynow = Paynow(
+    
+    
+    #'13395', 
+    #'9c3c1ded-6b1d-4081-abfe-2c2033cf18f6',
+    '13396',
+    'af269a2d-c734-4a6a-aa2a-c96aa73fb4d3',
+    returnUrl,
+    returnUrl
+    )
+    payment = paynow.create_payment('Order', 'masboyk@gmail.com')
+    payment.add('Payment for stuff', 1)
+    response = paynow.send_mobile(payment, usern, 'ecocash')
+    if(response.success):
+        poll_url = response.poll_url
+        print("Poll Url: ", poll_url)
+        status = paynow.check_transaction_status(poll_url)
+        time.sleep(10)
+        print("Payment Status: ", status.status)
+    return redirect('payment-success')
+
+
+    
+def payment(request): 
+    
+
+    if request.method == 'POST':
+        usern = request.POST.get('ecocashnumber')
+        returnUrl ='http://google.com'
+        returnUrl ='http://google.com'
+        print(usern)
+        paynow = Paynow(
+            #'13395', 
+            #'9c3c1ded-6b1d-4081-abfe-2c2033cf18f6',
+            '13396',
+            'af269a2d-c734-4a6a-aa2a-c96aa73fb4d3',
+            returnUrl,
+            returnUrl
+            )
+        payment = paynow.create_payment('Order', 'masboyk@gmail.com')
+        payment.add('Payment for stuff', 1)
+        response = paynow.send_mobile(payment, usern, 'ecocash')
+        if(response.success):
+            poll_url = response.poll_url
+            print("Poll Url: ", poll_url)
+            status = paynow.check_transaction_status(poll_url)
+            time.sleep(10)
+            print("Payment Status: ", status.status)
+        #return redirect('payment-success')
+
+
+
+                 <div class="col-12 mt-4">
+          
+            
+            <div class="card-body p-3">
+              <div class="row">
+                <div class="col-xl-3 col-md-6 mb-xl-0 mb-4">
+                  <div class="card-header pb-0 p-3">
+              <h6 class="mb-1">{{ product.companyid.company_name}}</h6>
+              <p class="text-sm">....................</p>
+            </div>
+                  <div class="card card-blog card-plain">
+                    <div class="position-relative">
+                      <a class="d-block shadow-xl border-radius-xl">
+                        <img src="{{ product.product_image.url }}" alt="img-blur-shadow" class="img-fluid shadow border-radius-xl">
+                      </a>
+                    </div>
+                    <div class="card-body px-1 pb-0">
+                      <p class="text-gradient text-dark mb-2 text-sm">$ {{ product.product_price }} </p>
+                       <p class="text-gradient text-dark mb-2 text-sm">quantity :  {{ product.product_quantity }} </p>
+                    
+                      <a href="javascript:;">
+                        <h5>
+                       {{ product.product_name }}
+                        </h5>
+                      </a>
+                      <p class="mb-4 text-sm">
+                     {{ product.product_info }}
+                      </p>
+                      <div class="d-flex align-items-center justify-content-between">
+                        <button type="button" class="btn btn-outline-primary btn-sm mb-0">
+                     
+                                           <a class="btn btn-link text-danger text-gradient px-3 mb-0"
+                                            href="{% url 'open-product' product.id %}"> View</a>
+                          </button>
+                      
+                      </div>
+                    </div>
+                  </div>
+                </div>
+           
+             
+               
+              </div>
+            </div>
+          </div>
+        </div>

@@ -1,0 +1,30 @@
+
+{% extends 'main/bdheader.html '%}
+   {% block content %}
+
+     <div class="content-section">
+  <div class="container">
+
+    <h2>  </h2>
+
+    <form method="POST">
+        {% csrf_token %}
+<fieldset class="form-group">
+ <div class="col-xs-6">
+    <h4>You are Deleting   "{{  object.productname }}"  </h4>
+
+    <h3>Are You Sure</h3>
+       <div class="form-group">
+  <button type="submit" class="btn btn-danger">Yes Delete</button>
+   <a href="{% url 'submit-pay' user.id %}" class="btn btn-warning">No Cancel</a>
+       </div>
+       </fieldset>
+    
+ </div>
+    
+    </form>
+  </div>
+</div>
+
+       
+ {% endblock content %}

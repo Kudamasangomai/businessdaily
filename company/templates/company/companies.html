@@ -1,0 +1,76 @@
+{% extends "main/bdheader.html" %}
+
+<style>
+  #tb{
+    background-color: red;
+  }
+  </style>
+{% block content %}
+<div class="container-fluid py-4">
+      <div class="row">
+        <div class="col-12">
+          <div class="card mb-4">
+            <div class="card-header pb-0" id="tb" style="background-color: #219dfe;">
+              <h6>Companies</h6>
+            </div>
+            <div class="card-body px-0 pt-0 pb-2">
+              <div class="table-responsive p-0">
+                <table class="table align-items-center mb-0">
+                  <thead>
+                    <tr>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Company Name and Owner</th>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">company Address</th>
+                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Approved</th>
+                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Date Created</th>
+                   
+                      <th class="text-secondary opacity-7"></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                      {% for companies in companies %}
+                    <tr>
+                         <td>
+                        <div class="d-flex px-2 py-1">
+                          <div>
+                            
+                          </div>
+                          <div class="d-flex flex-column justify-content-center">
+                               <p class="text-xs text-secondary mb-0">{{ companies.companyid}}</p>
+                            <h6 class="mb-0 text-sm">{{ companies.company_name}}</h6>
+                           
+                          </div>
+                        </div>
+                      </td>
+                   
+                      <td>
+                        <p class="text-xs font-weight-bold mb-0">{{ companies.company_address}}</p>
+                        <p class="text-xs text-secondary mb-0">{{ companies.location}}</p>
+                      </td>
+                      <td class="align-middle text-center text-sm">
+                        {% if companies.companyid.is_superuser  %}
+
+                        <span class="badge badge-sm bg-gradient-success">Approved</span>
+                        {% else %}
+                          <span class="badge badge-sm bg-gradient-danger">Not Approved</span>
+                        {% endif %}
+                      </td>
+                      <td class="align-middle text-center">
+                        <span class="text-secondary text-xs font-weight-bold">{{ companies.regdate}}</span>
+                      </td>
+                     
+                    </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+</div>
+
+                  
+                    
+
+
+{% endblock content %}

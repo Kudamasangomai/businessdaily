@@ -1,0 +1,174 @@
+{% extends 'main/bdheader.html '%}
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% block content %}
+
+
+{% if form.errors %}
+{{ form.errors }}
+{% endif %}
+
+
+
+ {% if messages %}
+
+     {% for message in messages    %}
+
+
+    <div class="alert alert-{{message.tags}}" role="alert">
+        {{ message }}
+      </div>
+
+      {% endfor  %}
+      {% endif %}
+<div class="container-fluid py-4">
+      <div class="row">
+{% if user.is_superuser  %}
+    <div class="col-lg-8">
+      <form method="POST" enctype="multipart/form-data" >
+{% csrf_token %}
+
+  <!-- 
+<input type="text" name="companyid" value="userinfo.companyid "/>
+<input type="text" name="postedbyuser" value="request.user "/>-->
+
+
+          <div class="row">
+            <div class="col-xl-6 mb-xl-0 mb-4">
+              <div class="card bg-transparent shadow-xl">
+                <div class="overflow-hidden position-relative border-radius-xl">
+                 
+                  <div class="card-body position-relative z-index-1 p-3">
+                  
+                    <div class="d-flex">
+                   
+                        {{ form.product_image|as_crispy_field }}
+                         
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+             <div class="col-xl-6 mb-xl-0 mb-4">
+               <div class="card bg-transparent shadow-xl">
+                <div class="overflow-hidden position-relative border-radius-xl">
+                 
+                  <div class="card-body position-relative z-index-1 p-3">
+                   
+                    <div class="d-flex">
+    {{ form.product_name|as_crispy_field }}
+    <br/>
+      {{ form.product_price|as_crispy_field }}
+   
+                    </div>
+                  </div>
+                </div>
+               </div>
+               
+             </div>
+        
+            <div class="col-md-12 mb-lg-0 mb-4">
+              <div class="card mt-4">
+                <div class="card-header pb-0 p-3">
+                  <div class="row">
+                    <div class="col-6 d-flex align-items-center">
+                      <h6 class="mb-0"></h6>
+                    </div>
+                    
+      {{ form.product_info|as_crispy_field }}     
+       {{ form.dateposted|as_crispy_field }} 
+
+                  </div>
+                </div>
+                <div class="card-body p-3">
+                  <div class="row">
+                    <div class="col-md-6 mb-md-0 mb-4">
+                    
+                         {{ form.product_category|as_crispy_field }}
+                
+                    </div>
+                     
+                     <div class="col-md-6 mb-md-0 mb-4">
+                    
+                        {{ form.product_quantity|as_crispy_field }}
+                     
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <br/>
+
+           <button type="submit" class="btn btn-info">Submit</button>
+           </form>
+             
+        </div>
+        
+
+
+
+  <div class="col-lg-4">
+   .
+  </div>
+ {% else %}
+
+          {%  endif %}
+  </div>
+
+  
+
+   <form method="POST" action="{% url 'add-to-cart'  %}" enctype="multipart/form-data">
+     {% csrf_token %}
+      {% for product in product %}
+  
+        <div class="col-lg-8"  "background-color: #219dfe;">
+          <div class="card bg-red-100">
+            <div class="card-header pb-0 px-3" style="background-color: #219dfe;">
+              <input type="text" hidden="hidden" name="companyname"  value="{{ product.companyid.company_name }}"/>
+              <h6 class="mb-0" name="">{{ product.companyid.company_name}}</h6>
+            </div>
+            <div class="card-body pt-4 p-3">
+              <ul class="list-group">
+                <li class="list-group-item border-2 d-flex p-4 mb-2 bg-gray-100 border-radius-lg">
+                  <div class="d-flex flex-column">
+                    <h6 class="mb-3 text-sm">{{ product.product_name }}</h6>
+                   <span class="text-dark ms-sm-2 font-weight-bold">Description: <span>{{ product.product_info }}</span></span>
+         <span class="text-dark ms-sm-2 font-weight-bold">price: <span>${{ product.product_price }}.00</span></span>
+                    <span class="text-dark ms-sm-2 font-weight-bold">Quantity: {{ product.product_quantity }} <span class="text-dark ms-sm-2 font-weight-bold"></span></span>
+                       <span class="text-dark ms-sm-2 font-weight-bold">Location: {{ product.companyid.company_address }}: <span class="text-dark ms-sm-2 font-weight-bold"></span></span>
+                       <div class="ms-auto text-end">
+                    <a class="btn btn-link text-danger text-gradient px-3 mb-0" href="{% url 'open-product' product.id %}"><i class='fa fa-eye'></i> View</a>
+                  <!-- <button class="btn btn-link text-dark px-3 mb-0"  type="submit"> <i class="fas fa-pencil-alt text-dark me-2" aria-hidden="true"></i>Add to Cart
+                   --></button>
+                  </div>
+                  </div>
+                  <div class="ms-auto text-end">              
+               
+                  
+             
+                    <div class="position-relative d-flex align-items-center justify-content-center h-100">
+                      <img class="w-100 position-relative z-index-2 pt-4" src="{{ product.product_image.url }}" width="200" height="200">
+                    </div>
+               
+          
+            
+                  </div>
+               
+                </li>
+              </ul>
+            </div>
+         <br/>
+          </div>
+          <br/>
+        </div>
+
+
+        {% endfor %}
+    </form>
+        
+  </div>
+
+  {% endblock %}  
