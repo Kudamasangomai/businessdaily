@@ -159,10 +159,9 @@ def payment(request):
         returnUrl ='http://google.com'
         #print(usern)
         paynow = Paynow(
-            #'13395', 
-            #'9c3c1ded-6b1d-4081-abfe-2c2033cf18f6',
-            '13396',
-            'af269a2d-c734-4a6a-aa2a-c96aa73fb4d3',
+           
+            'id',
+            'key',
             returnUrl,
             returnUrl
             )
