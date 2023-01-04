@@ -160,8 +160,8 @@ def payment(request):
         #print(usern)
         paynow = Paynow(
            
-            'id',
-            'key',
+              'INTEGRATION_ID', 
+                'INTEGRATION_KEY',
             returnUrl,
             returnUrl
             )

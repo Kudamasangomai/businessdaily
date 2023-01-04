@@ -1,2 +1,5 @@
 #GOOGLE_API_KEY = "AIzaSyBvbBsUNYd90GG2HV-73ETg-RDmdUx4V_o"
 GOOGLE_API_KEY = "AIzaSyB0jAipA0NLnAmwgxjeQ6eJpYzwLOGGRtc"
+INTEGRATION_ID = '13396',
+INTEGRATION_KEY = 'af269a2d-c734-4a6a-aa2a-c96aa73fb4d3',
+SECRET_KEY = 'django-insecure-+zj$$k=sp9p7i_8%u79sa_yoo^h64+kb!$t=!m3c3-$la$om_t'
