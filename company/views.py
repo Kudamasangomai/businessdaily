@@ -113,8 +113,8 @@ def payment(request):
     returnUrl ='http://google.com'
 
     paynow = Paynow(
-    '13396',
-    'af269a2d-c734-4a6a-aa2a-c96aa73fb4d3',
+    'INTEGRATION_ID', 
+                'INTEGRATION_KEY',
     returnUrl,
     returnUrl
     )
